@@ -15,5 +15,4 @@ onsenradio-podcast
 .glide/
 
 # golang/dep
-vendor/
 Gopkg.lock
