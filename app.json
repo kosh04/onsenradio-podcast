@@ -1,0 +1,9 @@
+{
+    "name": "onsen podcast",
+    "description": "Generate podcast for onsen.ag internet radio",
+    "keywords": [
+        "go",
+        "podcast"
+    ],
+    "repository": "https://github.com/kosh04/onsenradio-podcast"
+}
