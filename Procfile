@@ -1,1 +1,1 @@
-web: onsenradio-podcast -http -p $PORT
+web: onsenradio-podcast -p $PORT

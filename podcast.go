@@ -24,17 +24,12 @@ func podcastWriter(w io.Writer) {
 	p := podcast.New(
 		"インターネットラジオステーション＜音泉＞",
 		baseURL,
-		"TODO:DESCRIPTION",
+		"Podcast onsen.ag internet radio (unofficial)",
 		&now, &now,
 	)
 	p.Language = "ja"
 
 	doc.Find(".programConts").Each(func(i int, s *goquery.Selection) {
-		mediaLink, found := s.Find("form[action$='.mp3']").Attr("action")
-		if !found {
-			return
-		}
-
 		title := s.Find(".programTitle").Text()
 		pageLink, _ := s.Find(".programPageLink > a").Attr("href")
 		logo, _ := s.Find(".programLogo > img").Attr("src")
@@ -53,8 +48,13 @@ func podcastWriter(w io.Writer) {
 			},
 			PubDate: &date,
 		}
-		item.AddEnclosure(mediaLink, podcast.MP3, 0) // TODO: unknown audio size
 		item.AddImage(baseURL + logo)
+
+		audioLink, found := s.Find("form[action$='.mp3']").Attr("action")
+		if found {
+			// TODO: unknown audio size
+			item.AddEnclosure(audioLink, podcast.MP3, 0)
+		}
 
 		if _, err := p.AddItem(item); err != nil {
 			log.Printf("podcast.AddItem(%q) error: %v\n", item.Title, err)
@@ -65,12 +65,21 @@ func podcastWriter(w io.Writer) {
 	p.Encode(w)
 }
 
-// e.g. s: "8/21 UP" => "2017/08/21" => "2017-08-21 00:00:00 +0000 UTC"
+// parseUpdate parse time from html ".update" class field text
+// e.g. s: "8/21 UP" => "2017/08/21" => "2017-08-21 00:00:00 +0900 JST"
 func parseUpdate(s string) (time.Time, error) {
-	matched, err := regexp.MatchString(`(\d{1,2})/(\d{1,2}) UP`, s)
+	matched, err := regexp.MatchString(`\d{1,2}/\d{1,2} UP`, s)
 	if !matched {
-		return time.Now(), err
+		return time.Time{}, err
 	}
 	ss := fmt.Sprintf("%d/%s", now.Year(), strings.TrimSuffix(s, " UP")) // "&nbsp;UP"
-	return time.Parse("2006/1/2", ss)
+	return time.ParseInLocation("2006/1/2", ss, time.Local)
+}
+
+func description(url string) (string, error) {
+	doc, err := goquery.NewDocument(url)
+	if err != nil {
+		return "", err
+	}
+	return doc.Find("#introductionWrap").Text(), nil
 }

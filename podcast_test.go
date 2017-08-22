@@ -19,7 +19,7 @@ func TestParseUpdate(t *testing.T) {
 		if err != nil {
 			t.Errorf("parseUpdate(%q) error: %v", tt.s, err)
 		}
-		if update.Equal(tt.want) {
+		if !update.Equal(tt.want) {
 			t.Errorf("parseUpdate(%q) => %q, want %q", tt.s, update, tt.want)
 		}
 	}

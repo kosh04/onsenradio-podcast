@@ -7,24 +7,24 @@ import (
 )
 
 var opt struct {
-	http bool
 	port int
+	dump bool
 }
 
 func init() {
-	flag.BoolVar(&opt.http, "http", false, "Start http mode")
-	flag.IntVar(&opt.port, "p", 8000, "Litening port when http mode")
+	flag.IntVar(&opt.port, "p", 8000, "Listen port")
+	flag.BoolVar(&opt.dump, "dump", false, "Dump RSS feeds")
 }
 
 func main() {
 	flag.Parse()
 
-	if opt.http {
-		addr := fmt.Sprintf(":%d", opt.port)
-		fmt.Printf("Listening %s\n", addr)
-		serve(addr)
+	if opt.dump {
+		podcastWriter(os.Stdout)
 		return
 	}
 
-	podcastWriter(os.Stdout)
+	addr := fmt.Sprintf(":%d", opt.port)
+	fmt.Printf("Listening %s\n", addr)
+	serve(addr)
 }
