@@ -1,5 +1,8 @@
 {
 	"comment": "",
+	"heroku": {
+		"goVersion": "go1.8"
+	},
 	"ignore": "test",
 	"package": [
 		{
@@ -13,6 +16,18 @@
 			"path": "github.com/andybalholm/cascadia",
 			"revision": "349dd0209470eabd9514242c688c403c0926d266",
 			"revisionTime": "2016-12-24T14:14:13Z"
+		},
+		{
+			"checksumSHA1": "JljA+G/KHeA2QnMjyhSBFzyQ01o=",
+			"path": "github.com/eduncan911/podcast",
+			"revision": "31857dcb47651a186282f561083a4d363fe0b82a",
+			"revisionTime": "2017-05-13T15:33:56Z"
+		},
+		{
+			"checksumSHA1": "rJab1YdNhQooDiBWNnt7TLWPyBU=",
+			"path": "github.com/pkg/errors",
+			"revision": "c605e284fe17294bda444b34710735b29d1a9d90",
+			"revisionTime": "2017-05-05T04:36:39Z"
 		},
 		{
 			"checksumSHA1": "vqc3a+oTUGX8PmD0TS+qQ7gmN8I=",
