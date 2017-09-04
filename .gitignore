@@ -16,3 +16,7 @@ onsenradio-podcast
 
 # golang/dep
 Gopkg.lock
+
+# Vendoring
+/vendor/*/
+!/vendor/vendor.json

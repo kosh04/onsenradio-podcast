@@ -2,29 +2,23 @@ package main
 
 import (
 	"flag"
-	"fmt"
 	"os"
 )
 
-var opt struct {
-	port int
-	dump bool
-}
+const defaultAddr = ":8000"
 
-func init() {
-	flag.IntVar(&opt.port, "p", 8000, "Listen port")
-	flag.BoolVar(&opt.dump, "dump", false, "Dump RSS feeds")
-}
+var (
+	httpMode = flag.Bool("http", false, "Start HTTP serve mode")
+	httpAddr = flag.String("addr", defaultAddr, "HTTP serve `address`")
+)
 
 func main() {
 	flag.Parse()
 
-	if opt.dump {
-		podcastWriter(os.Stdout)
+	if *httpMode {
+		serve(*httpAddr)
 		return
 	}
 
-	addr := fmt.Sprintf(":%d", opt.port)
-	fmt.Printf("Listening %s\n", addr)
-	serve(addr)
+	podcastWriter(os.Stdout)
 }

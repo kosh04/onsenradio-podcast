@@ -1,24 +1,29 @@
 Podcast for onsen
 -----------------
 
-インターネットラジオステーション＜音泉＞のポッドキャストを生成するスクリプト
+[インターネットラジオステーション＜音泉＞](http://www.onsen.ag/)のポッドキャストを生成するスクリプト
 
-http://www.onsen.ag/
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/kosh04/onsenradio-podcast)
 
 ## Usage
 
-    $ ./onsenradio-podcast [-dump] [-p PORT]
-      -dump
-        	Dump RSS feeds
-      -p int
-        	Listen port (default 8000)
+    $ ./onsenradio-podcast -help
+    Usage of ./onsenradio-podcast:
+      -addr address
+        	HTTP serve address (default ":8000")
+      -http
+        	Start HTTP serve mode
 
 ## ポッドキャストを登録する
 
-    $ ./onsenradio-podcast
+    $ ./onsenradio-podcast -http
 
 このプログラムをサーバモードで起動した後
 http://localhost:8000/podcast をポッドキャストURLとして登録してください。
+
+また、このプログラムはHeroku上でも稼働しています。面倒な人は次のURLを登録してください。
+
+https://onsenradio.herokuapp.com/podcast
 
 ## TODO
 
